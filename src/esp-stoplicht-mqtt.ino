@@ -20,8 +20,7 @@ State - desc - Green - Red
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
-
-// Update these with values suitable for your network.
+// get the params from a separate config file
 #include <config.h>
 
 WiFiClient espClient;
