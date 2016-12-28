@@ -9,6 +9,7 @@ PIN2 is red
 
 ## Status table
 |State | desc | Green | Red|
+| ----|------|--------|----|
 |0 |   off    | Off |Off|
 |1 | Critical | Off | Blink Continuously|
 |2 | Urgent   | Off | ON|
