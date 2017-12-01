@@ -41,7 +41,7 @@ void setup() {
   pinMode(2, OUTPUT);     // Initialize PIN2 as output
   Serial.begin(115200);
   setup_wifi();
-  client.setServer(mqtt_server, 1883);
+  client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
 }
 
@@ -67,55 +67,7 @@ void setup_wifi() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived on topic [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
 
-  //Set status 0
-  if((char)payload[0] == '0') {
-    lampStatus=0;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);
-  }
-  if ((char)payload[0] == '1') {
-    lampStatus=1;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);
-  } 
-if((char)payload[0] == '2') {
-    lampStatus=2;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);    
-  }  
-if((char)payload[0] == '3') {
-    lampStatus=3;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);
-  }
-  if((char)payload[0] == '4') {
-    lampStatus=4;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);
-   }
-  if((char)payload[0] == '5') {
-    lampStatus=5;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);    
-  }
-  if((char)payload[0] == '6') {
-    lampStatus=6;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);
-  }
-  if((char)payload[0] == '7') {
-    lampStatus=7;
-    Serial.print("Set lampstatus to :");
-    Serial.println(lampStatus);
-  }
 }
 
 void reconnect() {
@@ -123,7 +75,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (client.connect("ESP8266Client")) {
+    if (client.connect("Stoplicht-test", mqtt_username, mqtt_password)) {
       Serial.println("connected");
       // Once connected, publish an announcement...
       client.publish("stoplicht/status", "online");
@@ -174,6 +126,7 @@ void loop() {
     digitalWrite(red, HIGH);
     delay(500);
     digitalWrite(red, LOW);
+    lampStatus=7;
   }
   if (lampStatus==5){
     blink(green,500);

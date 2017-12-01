@@ -1,3 +1,6 @@
 const char* ssid = "wifiname";
 const char* password = "pass";
 const char* mqtt_server = "mqtt.url";
+const int mqtt_port = 1883;
+const char* mqtt_username = "";
+const char* mqtt_password = "";
